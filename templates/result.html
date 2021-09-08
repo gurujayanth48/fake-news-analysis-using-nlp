@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" href="/static/css/style.css">
@@ -32,20 +33,20 @@
   <div class="back2 side">
     <div class="content">
       <h1>PREDICT FAKE NEWS</h1><br><br><br><br>
-      <form action = "/predict" method = "post">
+	  <form action = "/predict" method = "post">
         <input type = "url", name = "link", placeholder="Enter url here"><br>
         <center>
-          <button type="submit" class ="button1" value="Submit">Predict</button>
+          <button type="submit" class ="button" value="submit">Predict</button>
       </center>
       </form>
-      <p style="color: black ; text-align: center;font-size: 25"><b>RESULT<b></p>
-	  <div class="results">	
-	  {% if prediction == 1%}
-	  <h2 style="color:blue;">Real News</h2>
-	  {% elif prediction == 0%}
-	  <h2 style="color:red;">Fake News</h2>
-	  {% endif %}
-	  </div>
+      <p style="color:black;font-size : 25px;text-align: center;"><b>RESULT</b></p>
+  <div class="results">	
+	{% if prediction == 1%}
+	<h2 style="color:blue;">Real News</h2>
+	{% elif prediction == 0%}
+	<h2 style="color:red;">Fake News</h2>
+	{% endif %}
+	</div>
     </div>
   </div>
 
