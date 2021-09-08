@@ -36,6 +36,7 @@ def predict():
     my_pred = fnd.predict(vect)
     return render_template('result.html', prediction = my_pred)
 
+
 if __name__=="__main__":
     port = int(os.environ.get('PORT',5000))
     app.run(port=port,debug=True,use_reloader=False)
