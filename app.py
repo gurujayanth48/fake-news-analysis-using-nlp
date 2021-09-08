@@ -1,29 +1,27 @@
-
-
-import flask
-from flask import Flask, request, render_template
-from flask_cors import CORS
+from flask import Flask,render_template,url_for,request
+import pandas as pd 
 import pickle
-import os
-from sklearn.naive_bayes import MultinomialNB
 from sklearn.feature_extraction.text import CountVectorizer
-from newspaper import Article
-import urllib
+from sklearn.naive_bayes import MultinomialNB
 import joblib
+import urllib
+from newspaper import Article
+import pickle
 
 # load the model from disk
-file_name = 'nlp_model.pkl'
-fnd = pickle.load(open(file_name, 'rb'))
-cv = pickle.load(open('transformation.pkl','rb'))
+filename = 'nlp_model.pkl'
+clf = pickle.load(open(filename, 'rb'))
+cv=pickle.load(open('transformation.pkl','rb'))
 app = Flask(__name__)
-    
 
 @app.route('/')
-def main():
-    return render_template('main.html')
+def home():
+	return render_template('main.html')
 
 @app.route('/predict',methods=['POST'])
 def predict():
+	#if request.method == 'POST':
+    #url = request.form['link']
     url = request.get_data(as_text=True)[5:]
     url = urllib.parse.unquote(url)
     article = Article(str(url))
@@ -33,8 +31,10 @@ def predict():
     news = article.summary
     data = [news]
     vect = cv.transform(data).toarray()
-    my_pred = fnd.predict(vect)
-    return render_template('result.html', prediction = my_pred)
+    my_pred = clf.predict(vect)
+    return render_template('result.html',prediction = my_pred)
+
+
 
 if __name__ == '__main__':
 	app.run(debug=False)
