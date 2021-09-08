@@ -1,1 +1,1 @@
-# fake-news-analysis-usin-nlp
+# Fake-News-Analysis-using-NLP
